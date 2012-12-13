@@ -1,7 +1,7 @@
 #!/bin/bash
 
-TMP_DIR="/tmp/tiwilliam-dotfiles"
-GIT_URL="https://github.com/tiwilliam/dotfiles.git"
+TMP_DIR="/tmp/stefanwallin-dotfiles"
+GIT_URL="https://github.com/StefanWallin/dotfiles.git"
 
 # OS specific stuff
 case $(uname) in
@@ -40,6 +40,8 @@ fi
 install -m 644 ${TMP_DIR}/vimrc ${INSTALL_DIR}/.vimrc
 install -m 644 ${TMP_DIR}/bashrc ${INSTALL_DIR}/${BASH_CONFIG}
 install -m 644 ${TMP_DIR}/gitconfig ${INSTALL_DIR}/.gitconfig
+install -m 644 ${TMP_DIR}/.git-completion.sh ${INSTALL_DIR}/.git-completion.sh
+install -m 644 ${TMP_DIR}/.git-prompt.sh ${INSTALL_DIR}/.git-prompt.sh
 
 rm -rf ${INSTALL_DIR}/.vim
 cp -r ${TMP_DIR}/vim ${INSTALL_DIR}/.vim
