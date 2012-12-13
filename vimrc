@@ -1,80 +1,53 @@
-filetype off
-filetype plugin on
-filetype plugin indent on
-
-set t_Co=256
-set encoding=utf-8
-set laststatus=2
-set directory=/tmp
-set nocompatible
-set ruler
-set number
-set hlsearch
-
-" Make it fancy
-syntax on
-colorscheme ir_black_sg
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-Bundle 'gmarik/vundle'
-Bundle 'scrooloose/syntastic'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'AutoComplPop'
-Bundle 'ctrlp.vim'
-
-" Ctrl-P shortcuts
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/src/coverage/*,*/tmp/*,*.so,*.swp,*.zip,*.pyc
-
-" CMD+S saving
-map <C-s> :w<CR>
-imap <C-s> <Esc>:w<CR>i
-
-" Highlight colors
-highlight Search ctermbg=yellow ctermfg=black
-highlight MarkError ctermbg=red ctermfg=white
-
-" Highlight suspicious stuff
-match MarkError /[\x7f-\xff]/   " Broken chars
-match MarkError /\s\+\%#\@<!$/  " Extra whitespace
-match MarkError /\%80v.\+/      " 80 char limit
-
-" 79 char limit
-if exists('+colorcolumn')
-  highlight ColorColumn ctermbg=236 ctermfg=white
-  set colorcolumn=79
+if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
+   set fileencodings=utf-8,latin1
 endif
 
-" Remember cursor position
-function! ResCur()
-  if line("'\"") <= line("$")
-    normal! g`"
-    return 1
-  endif
-endfunction
+set nocompatible	" Use Vim defaults (much better!)
+set bs=indent,eol,start		" allow backspacing over everything in insert mode
+"set ai			" always set autoindenting on
+"set backup		" keep a backup file
+set viminfo='20,\"50	" read/write a .viminfo file, don't store more
+			" than 50 lines of registers
+set history=50		" keep 50 lines of command line history
+set ruler		" show the cursor position all the time
 
-autocmd BufWinEnter * call ResCur()
+" Only do this part when compiled with support for autocommands
+if has("autocmd")
+  augroup redhat
+    " In text files, always limit the width of text to 78 characters
+    autocmd BufRead *.txt set tw=78
+    " When editing a file, always jump to the last cursor position
+    autocmd BufReadPost *
+    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \   exe "normal! g'\"" |
+    \ endif
+  augroup END
+endif
 
-" Indent
-set smarttab
-set expandtab
-set autoindent
-set smartindent
-set tabstop=4 softtabstop=4 shiftwidth=4
+if has("cscope") && filereadable("/usr/bin/cscope")
+   set csprg=/usr/bin/cscope
+   set csto=0
+   set cst
+   set nocsverb
+   " add any database in current directory
+   if filereadable("cscope.out")
+      cs add cscope.out
+   " else add database pointed to by environment
+   elseif $CSCOPE_DB != ""
+      cs add $CSCOPE_DB
+   endif
+   set csverb
+endif
 
-" Aliases
-:command! W w
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
 
-" TAB autocomplete
-inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
-function! Tab_Or_Complete()
-  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-    return "\<C-N>"
-  else
-    return "\<Tab>"
-  endif
-endfunction
+if &term=="xterm"
+     set t_Co=8
+     set t_Sb=[4%dm
+     set t_Sf=[3%dm
+endif
