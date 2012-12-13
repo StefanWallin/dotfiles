@@ -43,5 +43,10 @@ install -m 644 ${TMP_DIR}/gitconfig ${INSTALL_DIR}/.gitconfig
 install -m 644 ${TMP_DIR}/.git-completion.sh ${INSTALL_DIR}/.git-completion.sh
 install -m 644 ${TMP_DIR}/.git-prompt.sh ${INSTALL_DIR}/.git-prompt.sh
 
-rm -rf ${INSTALL_DIR}/.vim
-cp -r ${TMP_DIR}/vim ${INSTALL_DIR}/.vim
+#Load the settings
+read -p "Do you want to load your newly installed settings? (y/n) " -n 1
+echo
+if [[  $REPLY =~ ^[Yy]$ ]]; then
+    echo "Loading."
+    source ${INSTALL_DIR}/${BASH_CONFIG}
+fi
