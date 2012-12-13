@@ -2,15 +2,16 @@
 
 TMP_DIR="/tmp/stefanwallin-dotfiles"
 GIT_URL="https://github.com/StefanWallin/dotfiles.git"
-
+BASH_CONFIG=".bashrc"
+ 
 # OS specific stuff
 case $(uname) in
     Darwin)
-        BASH_CONFIG=".profile"
+#        BASH_CONFIG=".profile"
         INSTALL_DIR="/Users/${USER}"
     ;;
     *)
-        BASH_CONFIG=".bashrc"
+ #       BASH_CONFIG=".bashrc"
         INSTALL_DIR="${HOME}"
 esac
 
