@@ -41,15 +41,29 @@ EDITOR="vim"
 
 # Functions #
 #############
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+# Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
 
-# Get current git branch if any
 function current_branch {
+    # Get current git branch if any
     BRANCH=$(git branch 2> /dev/null | sed -n 's/^* \(.*\)/\1/p')
     if [ ! -z "${BRANCH}" ]; then
         echo "${BRANCH} "
     fi
 }
+function m(){
+    # Get a cleaner make output
+    clean; /usr/bin/make --silent $@; date
+}
+function bdif(){
+    # Improved diff for bazaar.
+    bzr diff $1|colordiff
+}
+function mate(){
+    # remote version of the Textmate helper app "mate" for my server
+    ruby -e "a = ARGV.length == 0 ? ' ' : ARGV[0]; p = (a[0] == 47 ? a : Dir.pwd + '/' + a); s = File.expand_path(p); puts p.gsub( /\/home\/stefan/, '/Volumes/fig') if p.match( /\/home\/stefan/);" $@
+}
+
 
 # Bash aliases #
 ################
