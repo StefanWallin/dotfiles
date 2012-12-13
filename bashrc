@@ -1,3 +1,11 @@
+#.bashrc
+
+# Source global definitions #
+#############################
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
 # Colors #
 ##########
 esc="\033"
@@ -27,6 +35,8 @@ PATH=$PATH:$HOME/bin
 PATH="/usr/local/bin:~/bin:$PATH"
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 EDITOR="vim"
+
+
 
 
 # Functions #
