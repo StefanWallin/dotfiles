@@ -4,6 +4,12 @@ TMP_DIR="/tmp/stefanwallin-dotfiles"
 GIT_URL="https://github.com/StefanWallin/dotfiles.git"
 BASH_CONFIG=".bashrc"
  
+# Test if we have git
+if [ ! `which git|grep git` ]; then
+        echo "You don't have git installed, fix that please before you go any further."
+        exit 1
+fi
+ 
 # OS specific stuff
 case $(uname) in
     Darwin)
