@@ -72,10 +72,13 @@ alias ll='ls $LS_OPTIONS -l'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
+alias vmake="/usr/bin/make"
+alias make="m"
 alias grep='grep --color --exclude="*.pyc"'
 alias autotest='watchr test/test.watchr'
 alias subl='open -a "Sublime Text 2"'
 alias monteraFig="mkdir /Volumes/fig; mount_sshfs festiz.com:/home/festiz/web/ /Volumes/fig/"
+alias hbzr="BZR_REMOTE_PATH='bzr --no-plugins' bzr" # Hardened bazaar for dealing with broken pipes.
 
 # Git aliases #
 ###############
