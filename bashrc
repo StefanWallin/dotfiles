@@ -86,6 +86,7 @@ alias gs="git status --ignore-submodules -sb"
 alias gd="git diff --ignore-submodules --color"
 alias ga='git add'
 alias gp='git push origin $(current_branch)'
+alias gap='git add -p'
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --color"
 alias renamehelp="echo 'for i in *.JPG; do mv \$i ar_\$i; done'; echo 'for i in *.JPG; do mv \$i \${i%%.JPG}.jpg; done'"
 alias tunnelhelp='echo "ssh -L port:localhost:port sshhost -Nf"'
@@ -94,6 +95,8 @@ alias tunnelhelp='echo "ssh -L port:localhost:port sshhost -Nf"'
 ##############
 source ~/.git-completion.sh
 source ~/.git-prompt.sh
+
+GIT_PS1_SHOWDIRTYSTATE="1"
 
 if type -p printf > /dev/null 2>&1; then
         red=$(printf '\e[31m')
