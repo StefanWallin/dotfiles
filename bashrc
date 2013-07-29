@@ -83,6 +83,7 @@ alias hbzr="BZR_REMOTE_PATH='bzr --no-plugins' bzr" # Hardened bazaar for dealin
 # Git aliases #
 ###############
 alias gs="git status --ignore-submodules -sb"
+alias gc="gs|grep UU"
 alias gd="git diff --ignore-submodules --color"
 alias ga='git add'
 alias gp='git push origin $(current_branch)'
