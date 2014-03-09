@@ -51,6 +51,10 @@ function current_branch {
         echo "${BRANCH} "
     fi
 }
+function mvn(){
+    # Get alerted when maven is done.
+    `which mvn` $@; date; say "Oyy. Maven is done."
+}
 function m(){
     # Get a cleaner make output
     clean; /usr/bin/make --silent $@; date
