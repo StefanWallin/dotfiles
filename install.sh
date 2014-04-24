@@ -42,12 +42,12 @@ else
     popd
 fi
 
-install -m 644 ${TMP_DIR}/vimrc ${INSTALL_DIR}/.vimrc
-install -m 644 ${TMP_DIR}/bashrc ${INSTALL_DIR}/${BASH_CONFIG}
-install -m 644 ${TMP_DIR}/bash_logout ${INSTALL_DIR}/.bash_logout
-install -m 644 ${TMP_DIR}/gitconfig ${INSTALL_DIR}/.gitconfig
-install -m 644 ${TMP_DIR}/.git-completion.sh ${INSTALL_DIR}/.git-completion.sh
-install -m 644 ${TMP_DIR}/.git-prompt.sh ${INSTALL_DIR}/.git-prompt.sh
+install -b -m 644 ${TMP_DIR}/vimrc ${INSTALL_DIR}/.vimrc
+install -b -m 644 ${TMP_DIR}/bashrc ${INSTALL_DIR}/${BASH_CONFIG}
+install -b -m 644 ${TMP_DIR}/bash_logout ${INSTALL_DIR}/.bash_logout
+install -b -m 644 ${TMP_DIR}/gitconfig ${INSTALL_DIR}/.gitconfig
+install -b -m 644 ${TMP_DIR}/.git-completion.sh ${INSTALL_DIR}/.git-completion.sh
+install -b -m 644 ${TMP_DIR}/.git-prompt.sh ${INSTALL_DIR}/.git-prompt.sh
 
 #Load the settings
 read -p "Do you want to load your newly installed settings? (y/n) " -n 1
