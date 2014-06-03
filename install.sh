@@ -19,7 +19,17 @@ case $(uname) in
         INSTALL_DIR="${HOME}"
 esac
 
+echo "Showing diff of files to be installed:"
+diff -u -w ${TMP_DIR}/vimrc ${INSTALL_DIR}/.vimrc
+diff -u -w ${TMP_DIR}/bashrc ${INSTALL_DIR}/${BASH_CONFIG}
+diff -u -w ${TMP_DIR}/bash_logout ${INSTALL_DIR}/.bash_logout
+diff -u -w ${TMP_DIR}/gitconfig ${INSTALL_DIR}/.gitconfig
+diff -u -w ${TMP_DIR}/.git-completion.sh ${INSTALL_DIR}/.git-completion.sh
+diff -u -w ${TMP_DIR}/.git-prompt.sh ${INSTALL_DIR}/.git-prompt.sh
+echo
+
 # Are you sure?
+
 read -p "This may overwrite existing files in ${INSTALL_DIR}. Are you sure? (y/n) " -n 1
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
