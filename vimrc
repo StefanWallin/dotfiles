@@ -11,6 +11,11 @@ set viminfo='20,\"50	" read/write a .viminfo file, don't store more
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 
+execute pathogen#infect()
+filetype plugin indent on
+
+map <C-n> :NERDTreeToggle<CR>
+
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
   augroup redhat
@@ -18,6 +23,9 @@ if has("autocmd")
     autocmd BufRead *.txt set tw=78
     " When editing a file, always jump to the last cursor position
     autocmd BufReadPost *
+    " When open a NERDTree automatically when vim starts up if no files were specified
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
     \ if line("'\"") > 0 && line ("'\"") <= line("$") |
     \   exe "normal! g'\"" |
     \ endif
@@ -52,11 +60,6 @@ if &term=="xterm"
      set t_Sf=[3%dm
 endif
 
-" source ~/.vim/autoload/pathogen.vim
-execute pathogen#infect()
-filetype plugin indent on
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 cmap w!! %!sudo tee > /dev/null %
