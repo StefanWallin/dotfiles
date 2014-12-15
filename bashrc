@@ -33,7 +33,9 @@ grey4="\[$esc[1;37m\]"
 GREP_OPTIONS="--color=auto"
 PATH=$PATH:$HOME/bin
 PATH="/usr/local/bin:~/bin:$PATH"
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export NVM_DIR="/Users/festiz/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 EDITOR="vim"
 
 
