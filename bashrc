@@ -100,6 +100,11 @@ alias gl="git log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset 
 alias renamehelp="echo 'for i in *.JPG; do mv \$i ar_\$i; done'; echo 'for i in *.JPG; do mv \$i \${i%%.JPG}.jpg; done'"
 alias tunnelhelp='echo "ssh -L port:localhost:port sshhost -Nf"'
 
+# Use hub helper for github if available.
+if [ -f `which hub` ]; then
+	alias git="hub"
+fi
+
 # Git prompt #
 ##############
 source ~/.git-completion.sh
