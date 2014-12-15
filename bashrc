@@ -93,6 +93,7 @@ alias gd="git diff --ignore-submodules --color"
 alias ga='git add'
 alias gp='git push origin $(current_branch)'
 alias gap='git add -p'
+alias pick='git cherry-pick'
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --color"
 alias renamehelp="echo 'for i in *.JPG; do mv \$i ar_\$i; done'; echo 'for i in *.JPG; do mv \$i \${i%%.JPG}.jpg; done'"
 alias tunnelhelp='echo "ssh -L port:localhost:port sshhost -Nf"'
