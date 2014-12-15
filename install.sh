@@ -14,10 +14,23 @@ fi
 case $(uname) in
     Darwin)
         INSTALL_DIR="/Users/${USER}"
+	echo "Checking installed software:"
+	for i in nvm node npm rvm brew wget git hub bower; do
+		check_software(i)
+	done
+	defaults write -g ApplePressAndHoldEnabled -bool false
     ;;
     *)
         INSTALL_DIR="${HOME}"
 esac
+
+function check_software($i){
+	if [ -f `which $i` ]; then
+		echo "${i} is installed."
+	else
+		echo "${i} is not installed."
+	fi
+}
 
 echo "Showing diff of files to be installed:"
 diff -u -w ${TMP_DIR}/vimrc ${INSTALL_DIR}/.vimrc
