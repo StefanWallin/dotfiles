@@ -59,6 +59,19 @@ install -b -m 644 ${TMP_DIR}/gitconfig ${INSTALL_DIR}/.gitconfig
 install -b -m 644 ${TMP_DIR}/.git-completion.sh ${INSTALL_DIR}/.git-completion.sh
 install -b -m 644 ${TMP_DIR}/.git-prompt.sh ${INSTALL_DIR}/.git-prompt.sh
 
+# Install vim plugins
+## Pathogen.vim
+mkdir -p ${INSTALL_DIR}/.vim/autoload ${INSTALL_DIR}/.vim/bundle
+curl -LSso ${INSTALL_DIR}/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+## NERD_tree.vim
+if [ -d "${INSTALL_DIR}/.vim/bundle/nerdtree" ]; then
+	cd ${INSTALL_DIR}/.vim/bundle/nerdtree && git pull
+else
+	cd ${INSTALL_DIR}/.vim/bundle/ && git clone https://github.com/scrooloose/nerdtree.git
+fi
+
+
 #Load the settings
 read -p "Do you want to load your newly installed settings? (y/n) " -n 1
 echo

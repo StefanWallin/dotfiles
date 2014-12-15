@@ -52,4 +52,11 @@ if &term=="xterm"
      set t_Sf=[3%dm
 endif
 
+" source ~/.vim/autoload/pathogen.vim
+execute pathogen#infect()
+filetype plugin indent on
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
 cmap w!! %!sudo tee > /dev/null %
