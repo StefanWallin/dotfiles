@@ -4,6 +4,38 @@ TMP_DIR="/tmp/stefanwallin-dotfiles"
 GIT_URL="https://github.com/StefanWallin/dotfiles.git"
 BASH_CONFIG=".bashrc"
  
+# Colors #
+##########
+esc='\033'
+normal='$esc[0;00m'
+white='$esc[0;01m'
+black='$esc[0;30m'
+
+red1='$esc[0;31m'
+red2='$esc[1;31m'
+green1='$esc[0;32m'
+green2='$esc[1;32m'
+yellow1='$esc[0;33m'
+yellow2='$esc[1;33m'
+blue1='$esc[0;34m'
+blue2='$esc[1;34m'
+purple1='$esc[0;35m'
+purple2='$esc[1;35m'
+grey1='$esc[0;36m'
+grey2='$esc[1;36m'
+grey3='$esc[0;37m'
+grey4='$esc[1;37m'
+
+function check_software(){
+	if [ `which $1` ]; then
+		status="[${green1}installed${normal}]"
+	else
+		status="[${red1}unavailable${normal}]"
+	fi
+	app="${blue1}${1}${normal}"
+	printf "%-30b %b\n" $app ${status}
+}
+
 # Test if we have git
 if [ ! `which git|grep git` ]; then
         echo "You don't have git installed, fix that please before you go any further."
@@ -15,40 +47,18 @@ case $(uname) in
     Darwin)
         INSTALL_DIR="/Users/${USER}"
 	echo "Checking installed software:"
-	for i in nvm node npm rvm brew wget git hub bower; do
-		check_software(i)
+	for software in nvm node npm rvm brew wget git hub bower; do
+		check_software $software
 	done
+	echo -en "\n"
 	defaults write -g ApplePressAndHoldEnabled -bool false
     ;;
     *)
         INSTALL_DIR="${HOME}"
 esac
 
-function check_software($i){
-	if [ -f `which $i` ]; then
-		echo "${i} is installed."
-	else
-		echo "${i} is not installed."
-	fi
-}
 
-echo "Showing diff of files to be installed:"
-diff -u -w ${TMP_DIR}/vimrc ${INSTALL_DIR}/.vimrc
-diff -u -w ${TMP_DIR}/bashrc ${INSTALL_DIR}/${BASH_CONFIG}
-diff -u -w ${TMP_DIR}/bash_logout ${INSTALL_DIR}/.bash_logout
-diff -u -w ${TMP_DIR}/gitconfig ${INSTALL_DIR}/.gitconfig
-diff -u -w ${TMP_DIR}/.git-completion.sh ${INSTALL_DIR}/.git-completion.sh
-diff -u -w ${TMP_DIR}/.git-prompt.sh ${INSTALL_DIR}/.git-prompt.sh
-echo
 
-# Are you sure?
-
-read -p "This may overwrite existing files in ${INSTALL_DIR}. Are you sure? (y/n) " -n 1
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    echo "Aborting."
-    exit 1
-fi
 
 # Get latest files
 if [ -d "${TMP_DIR}" ]; then
@@ -63,6 +73,24 @@ else
         git submodule init
         git submodule update
     popd
+fi
+
+echo "Showing diff of files to be installed:"
+diff -u -w ${INSTALL_DIR}/.vimrc ${TMP_DIR}/vimrc
+diff -u -w ${INSTALL_DIR}/${BASH_CONFIG} ${TMP_DIR}/bashrc
+diff -u -w ${INSTALL_DIR}/.bash_logout ${TMP_DIR}/bash_logout
+diff -u -w ${INSTALL_DIR}/.gitconfig ${TMP_DIR}/gitconfig
+diff -u -w ${INSTALL_DIR}/.git-completion.sh ${TMP_DIR}/.git-completion.sh
+diff -u -w ${INSTALL_DIR}/.git-prompt.sh ${TMP_DIR}/.git-prompt.sh
+echo
+
+# Are you sure?
+
+read -p "This may overwrite existing files in ${INSTALL_DIR}. Are you sure? (y/n) " -n 1
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Aborting."
+    exit 1
 fi
 
 install -b -m 644 ${TMP_DIR}/vimrc ${INSTALL_DIR}/.vimrc
