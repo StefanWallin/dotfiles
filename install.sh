@@ -80,8 +80,8 @@ diff -u -w ${INSTALL_DIR}/.vimrc ${TMP_DIR}/vimrc
 diff -u -w ${INSTALL_DIR}/${BASH_CONFIG} ${TMP_DIR}/bashrc
 diff -u -w ${INSTALL_DIR}/.bash_logout ${TMP_DIR}/bash_logout
 diff -u -w ${INSTALL_DIR}/.gitconfig ${TMP_DIR}/gitconfig
-diff -u -w ${INSTALL_DIR}/.git-completion.sh ${TMP_DIR}/.git-completion.sh
-diff -u -w ${INSTALL_DIR}/.git-prompt.sh ${TMP_DIR}/.git-prompt.sh
+diff -u -w ${INSTALL_DIR}/.git-completion.sh ${TMP_DIR}/git-completion.sh
+diff -u -w ${INSTALL_DIR}/.git-prompt.sh ${TMP_DIR}/git-prompt.sh
 echo
 
 # Are you sure?
@@ -97,8 +97,8 @@ install -b -m 644 ${TMP_DIR}/vimrc ${INSTALL_DIR}/.vimrc
 install -b -m 644 ${TMP_DIR}/bashrc ${INSTALL_DIR}/${BASH_CONFIG}
 install -b -m 644 ${TMP_DIR}/bash_logout ${INSTALL_DIR}/.bash_logout
 install -b -m 644 ${TMP_DIR}/gitconfig ${INSTALL_DIR}/.gitconfig
-install -b -m 644 ${TMP_DIR}/.git-completion.sh ${INSTALL_DIR}/.git-completion.sh
-install -b -m 644 ${TMP_DIR}/.git-prompt.sh ${INSTALL_DIR}/.git-prompt.sh
+install -b -m 644 ${TMP_DIR}/git-completion.sh ${INSTALL_DIR}/.git-completion.sh
+install -b -m 644 ${TMP_DIR}/git-prompt.sh ${INSTALL_DIR}/.git-prompt.sh
 
 # Install vim plugins
 ## Pathogen.vim
