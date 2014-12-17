@@ -6,25 +6,25 @@ BASH_CONFIG=".bashrc"
  
 # Colors #
 ##########
-esc='\033'
-normal='$esc[0;00m'
-white='$esc[0;01m'
-black='$esc[0;30m'
+esc="\033"
+normal="$esc[0;00m"
+white="$esc[0;01m"
+black="$esc[0;30m"
 
-red1='$esc[0;31m'
-red2='$esc[1;31m'
-green1='$esc[0;32m'
-green2='$esc[1;32m'
-yellow1='$esc[0;33m'
-yellow2='$esc[1;33m'
-blue1='$esc[0;34m'
-blue2='$esc[1;34m'
-purple1='$esc[0;35m'
-purple2='$esc[1;35m'
-grey1='$esc[0;36m'
-grey2='$esc[1;36m'
-grey3='$esc[0;37m'
-grey4='$esc[1;37m'
+red1="$esc[0;31m"
+red2="$esc[1;31m"
+green1="$esc[0;32m"
+green2="$esc[1;32m"
+yellow1="$esc[0;33m"
+yellow2="$esc[1;33m"
+blue1="$esc[0;34m"
+blue2="$esc[1;34m"
+purple1="$esc[0;35m"
+purple2="$esc[1;35m"
+grey1="$esc[0;36m"
+grey2="$esc[1;36m"
+grey3="$esc[0;37m"
+grey4="$esc[1;37m"
 
 function check_software(){
 	if [ `which $1` ]; then
