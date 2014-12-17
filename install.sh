@@ -47,7 +47,7 @@ case $(uname) in
     Darwin)
         INSTALL_DIR="/Users/${USER}"
 	echo "Checking installed software:"
-	for software in nvm node npm rvm brew wget git hub bower; do
+	for software in nvm node npm rvm brew wget git hub bower gexpand gunexpand; do
 		check_software $software
 	done
 	echo -en "\n"
@@ -111,6 +111,18 @@ if [ -d "${INSTALL_DIR}/.vim/bundle/nerdtree" ]; then
 else
 	cd ${INSTALL_DIR}/.vim/bundle/ && git clone https://github.com/scrooloose/nerdtree.git
 fi
+
+
+# OS specific stuff
+case $(uname) in
+	Darwin)
+		git config --global filter.tabspace.clean "gexpand --tabs=2 --initial"
+		git config --global filter.indent.smudge "gunexpand --tabs=2 --first-only"
+	;;
+	*)
+		git config --global filter.tabspace.clean "expand --tabs=2 --initial"
+		git config --global filter.indent.smudge "unexpand --tabs=2 --first-only"
+esac
 
 
 #Load the settings
