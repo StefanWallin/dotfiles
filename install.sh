@@ -94,7 +94,7 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
 fi
 
-install -b -m 644 ${TMP_DIR/run-command-on-git-revisions ~/bin/run-command-on-git-revisions
+install -b -m 644 ${TMP_DIR}/run-command-on-git-revisions ~/bin/run-command-on-git-revisions
 install -b -m 644 ${TMP_DIR}/vimrc ${INSTALL_DIR}/.vimrc
 install -b -m 644 ${TMP_DIR}/bashrc ${INSTALL_DIR}/${BASH_CONFIG}
 install -b -m 644 ${TMP_DIR}/bash_logout ${INSTALL_DIR}/.bash_logout
