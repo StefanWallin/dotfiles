@@ -94,6 +94,8 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
 fi
 
+#Create dir for custom "binaries"
+mkdir -p ~/bin/
 install -b -m 644 ${TMP_DIR}/run-command-on-git-revisions ~/bin/run-command-on-git-revisions
 install -b -m 644 ${TMP_DIR}/vimrc ${INSTALL_DIR}/.vimrc
 install -b -m 644 ${TMP_DIR}/bashrc ${INSTALL_DIR}/${BASH_CONFIG}
