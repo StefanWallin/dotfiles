@@ -22,10 +22,6 @@ if has("autocmd")
     \   exe "normal! g'\"" |
     \ endif
   augroup END
-  " When open a NERDTree automatically when vim starts up if no files were specified
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 endif
 
 if has("cscope") && filereadable("/usr/bin/cscope")
@@ -73,6 +69,8 @@ filetype plugin indent on
 :command! W w
 :command! Wq wq
 :command! WQ wq
+:map <silent> <c-q> :CommandT<CR>
+:imap <silent> <c-q> <Esc>:CommandT<CR>
 cmap w!! %!sudo tee > /dev/null %
-map <C-n> :NERDTreeToggle<CR>
+
 

@@ -107,13 +107,12 @@ install -b -m 644 ${TMP_DIR}/git-prompt.sh ${INSTALL_DIR}/.git-prompt.sh
 mkdir -p ${INSTALL_DIR}/.vim/autoload ${INSTALL_DIR}/.vim/bundle
 curl -LSso ${INSTALL_DIR}/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-## NERD_tree.vim
-if [ -d "${INSTALL_DIR}/.vim/bundle/nerdtree" ]; then
-	cd ${INSTALL_DIR}/.vim/bundle/nerdtree && git pull
+## command-t.vim
+if [ -d "${INSTALL_DIR}/.vim/bundle/command-t" ]; then
+	cd ${INSTALL_DIR}/.vim/bundle/command-t && git pull
 else
-	cd ${INSTALL_DIR}/.vim/bundle/ && git clone https://github.com/scrooloose/nerdtree.git
+	cd ${INSTALL_DIR}/.vim/bundle/ && git clone git://git.wincent.com/command-t.git
 fi
-
 
 # OS specific stuff
 case $(uname) in

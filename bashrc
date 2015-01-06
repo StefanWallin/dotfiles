@@ -151,6 +151,9 @@ shopt -s histappend
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# This purpose of this line is to allow ctrl+s and similar shorthands to pass through to the applications inside the terminal:
+# http://stackoverflow.com/questions/24623021/getting-stty-standard-input-inappropriate-ioctl-for-device-when-using-scp-thro
+[[ $- == *i* ]] && stty -ixon
 
 # Export shit into the shell #
 ##############################
