@@ -92,9 +92,11 @@ alias server="python -m SimpleHTTPServer"
 alias gs="git status --ignore-submodules -sb"
 alias gc="gs|grep UU"
 alias gd="git diff --ignore-submodules --color"
+alias gdc="gd --cached"
 alias ga='git add'
+alias gaa='git add .'
 alias gp='git push origin $(current_branch)'
-alias gap='git add -p'
+alias gap='git add -p .'
 alias pick='git cherry-pick'
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --color"
 alias renamehelp="echo 'for i in *.JPG; do mv \$i ar_\$i; done'; echo 'for i in *.JPG; do mv \$i \${i%%.JPG}.jpg; done'"
