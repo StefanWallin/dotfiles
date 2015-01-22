@@ -26,3 +26,7 @@
 [rerere]
 	enabled = true
 	autoupdate = false
+
+[merge]
+    ff = no
+    commit = no
