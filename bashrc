@@ -154,18 +154,18 @@ shopt -s checkwinsize
 # http://stackoverflow.com/questions/24623021/getting-stty-standard-input-inappropriate-ioctl-for-device-when-using-scp-thro
 [[ $- == *i* ]] && stty -ixon
 
-# Export shit into the shell #
-##############################
-export PS1 PATH EDITOR GREP_OPTIONS GIT_PS1_SHOWDIRTYSTATE
-
 # ndenv path magic
 export PATH="$HOME/.ndenv/bin:$PATH"
 eval "$(ndenv init -)"
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+PATH="/usr/local/heroku/bin:$PATH"
 
 # Load RVM into a shell session *as a function*
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# Export shit into the shell #
+##############################
+export PS1 EDITOR GREP_OPTIONS GIT_PS1_SHOWDIRTYSTATE
 
