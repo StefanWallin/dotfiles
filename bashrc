@@ -33,7 +33,6 @@ grey4="\[$esc[1;37m\]"
 GREP_OPTIONS="--color=auto"
 PATH=$PATH:$HOME/bin
 PATH="/usr/local/bin:~/bin:$PATH"
-PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export NVM_DIR="/Users/festiz/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 EDITOR="vim"
@@ -43,8 +42,6 @@ EDITOR="vim"
 
 # Functions #
 #############
-# Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
 
 function current_branch {
     # Get current git branch if any
@@ -167,4 +164,8 @@ eval "$(ndenv init -)"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+# Load RVM into a shell session *as a function*
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
