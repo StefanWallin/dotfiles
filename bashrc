@@ -161,3 +161,6 @@ shopt -s checkwinsize
 ##############################
 export PS1 PATH EDITOR GREP_OPTIONS GIT_PS1_SHOWDIRTYSTATE
 
+# ndenv path magic
+export PATH="$HOME/.ndenv/bin:$PATH"
+eval "$(ndenv init -)"
