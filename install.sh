@@ -122,7 +122,7 @@ case $(uname) in
 	Darwin)
 		git config --global filter.indent.clean "gexpand --tabs=2 --initial"
 		git config --global filter.indent.smudge "gunexpand --tabs=2 --first-only"
-		if [ -f `which brew`]; then
+		if [ -f `which brew` ]; then
 			brew doctor
 		fi
 	;;
