@@ -88,6 +88,9 @@ alias server="python -m SimpleHTTPServer"
 ###############
 alias gs="git status --ignore-submodules -sb"
 alias gc="gs|grep UU"
+alias amend='gam'
+alias am='gam'
+alias gam='git commit --amend'
 alias gcm="git commit -m"
 alias gpf="git pull --ff-only"
 alias gd="git diff --ignore-submodules --color"
