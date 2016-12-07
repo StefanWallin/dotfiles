@@ -3,7 +3,7 @@
 TMP_DIR="/tmp/stefanwallin-dotfiles"
 GIT_URL="https://github.com/StefanWallin/dotfiles.git"
 BASH_CONFIG=".bashrc"
- 
+
 # Colors #
 ##########
 esc="\033"
@@ -41,7 +41,7 @@ if [ ! `which git|grep git` ]; then
         echo "You don't have git installed, fix that please before you go any further."
         exit 1
 fi
- 
+
 # OS specific stuff
 case $(uname) in
     Darwin)
@@ -80,7 +80,7 @@ diff -u -w ${INSTALL_DIR}/.vimrc ${TMP_DIR}/vimrc
 diff -u -w ${INSTALL_DIR}/${BASH_CONFIG} ${TMP_DIR}/bashrc
 diff -u -w ${INSTALL_DIR}/.bash_logout ${TMP_DIR}/bash_logout
 diff -u -w ${INSTALL_DIR}/.gitconfig ${TMP_DIR}/gitconfig
-diff -u -w ${INSTALL_DIR}/.gitattributes ${TMP_DIR}/gitattributes
+diff -u -w ${INSTALL_DIR}/.gitignore ${TMP_DIR}/gitignore
 diff -u -w ${INSTALL_DIR}/.git-completion.sh ${TMP_DIR}/git-completion.sh
 diff -u -w ${INSTALL_DIR}/.git-prompt.sh ${TMP_DIR}/git-prompt.sh
 echo
@@ -101,7 +101,7 @@ install -b -m 644 ${TMP_DIR}/vimrc ${INSTALL_DIR}/.vimrc
 install -b -m 644 ${TMP_DIR}/bashrc ${INSTALL_DIR}/${BASH_CONFIG}
 install -b -m 644 ${TMP_DIR}/bash_logout ${INSTALL_DIR}/.bash_logout
 install -b -m 644 ${TMP_DIR}/gitconfig ${INSTALL_DIR}/.gitconfig
-install -b -m 644 ${TMP_DIR}/gitattributes ${INSTALL_DIR}/.gitattributes
+install -b -m 644 ${TMP_DIR}/gitignore ${INSTALL_DIR}/.gitignore
 install -b -m 644 ${TMP_DIR}/git-completion.sh ${INSTALL_DIR}/.git-completion.sh
 install -b -m 644 ${TMP_DIR}/git-prompt.sh ${INSTALL_DIR}/.git-prompt.sh
 

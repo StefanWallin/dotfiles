@@ -31,17 +31,41 @@ grey4="\[$esc[1;37m\]"
 # Other variables #
 ###################
 GREP_OPTIONS="--color=auto"
-PATH=$PATH:$HOME/bin
+# Add bin folders to path
 PATH="/usr/local/bin:~/bin:$PATH"
-export NVM_DIR="/Users/festiz/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+# Add current directory to PATH
+PATH="$PATH:."
+# Added by the Heroku Toolbelt
+PATH="/usr/local/heroku/bin:$PATH"
+# Exorcism needs this, but general for go apps
+PATH="~/gogit/bin:$PATH"
+
+
+PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+source ~/.rbenv/completions/rbenv.bash
+rbenv rehash
+
+PATH="$HOME/.ndenv/bin:$PATH"
+eval "$(ndenv init -)"
+PATH="$HOME/.exenv/bin:$PATH"
+eval "$(exenv init -)"
+GOPATH=$HOME/gogit
 EDITOR="vim"
-
-
-
 
 # Functions #
 #############
+
+function sj_mac_spoof {
+  IF=en0
+  MAC=`openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/./0/2; s/.$//'`
+  echo "Changing hardware adress(MAC) of interface $IF to: $MAC"
+  sudo /System/Library/PrivateFrameworks/Apple80211.framework/Resources/airport -z
+  sudo ifconfig $IF ether $MAC
+  networksetup -detectnewhardware
+  sleep 5
+  open 'http://ombord.sj.se/'
+}
 
 function current_branch {
     # Get current git branch if any
@@ -70,6 +94,7 @@ function mate(){
 
 # Bash aliases #
 ################
+alias oct='octave-cli -q'
 alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
 alias rm='rm -i'
@@ -84,9 +109,18 @@ alias monteraFig="mkdir /Volumes/fig; mount_sshfs festiz.com:/home/festiz/web/ /
 alias hbzr="BZR_REMOTE_PATH='bzr --no-plugins' bzr" # Hardened bazaar for dealing with broken pipes.
 alias server="python -m SimpleHTTPServer"
 
+# Rails Aliases #
+#################
+alias bert="bundle exec rake -T"
+alias ber="bundle exec rake"
+alias be="bundle exec"
+alias bers="bundle exec rails s"
+alias berc="bundle exec rails c"
+
 # Git aliases #
 ###############
 alias gs="git status --ignore-submodules -sb"
+alias gco="git checkout "
 alias gc="gs|grep UU"
 alias amend='gam'
 alias am='gam'
@@ -113,7 +147,10 @@ fi
 ##############
 source ~/.git-completion.sh
 source ~/.git-prompt.sh
-
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+    . `brew --prefix`/etc/bash_completion
+fi
+source /usr/local/etc/bash_completion.d/git-flow-completion.bash
 GIT_PS1_SHOWDIRTYSTATE="1"
 
 if type -p printf > /dev/null 2>&1; then
@@ -127,11 +164,17 @@ fi
 ###############
 case $(uname) in
     Darwin)
-        export CLICOLOR=1
+        CLICOLOR=1
+
+        # Fix iterm2 terminal title.
+        function iterm_title { echo -ne "\033]0;$@\007"; }
+        trap 'iterm_title $BASH_COMMAND' DEBUG
+        PROMPT_COMMAND='iterm_title ${PWD##*/}$(__git_ps1 :%s)'
+
     ;;
     Linux)
         eval "`dircolors`"
-        export LS_OPTIONS='--color=auto'
+        LS_OPTIONS='--color=auto'
     ;;
     *)
 esac
@@ -140,9 +183,9 @@ esac
 #################
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
-export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # ... or force ignoredups and ignorespace
-export HISTCONTROL=ignoreboth
+HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -157,18 +200,8 @@ shopt -s checkwinsize
 # http://stackoverflow.com/questions/24623021/getting-stty-standard-input-inappropriate-ioctl-for-device-when-using-scp-thro
 [[ $- == *i* ]] && stty -ixon
 
-# ndenv path magic
-export PATH="$HOME/.ndenv/bin:$PATH"
-eval "$(ndenv init -)"
-
-### Added by the Heroku Toolbelt
-PATH="/usr/local/heroku/bin:$PATH"
-
-# Load RVM into a shell session *as a function*
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # Export shit into the shell #
 ##############################
-export PS1 EDITOR GREP_OPTIONS GIT_PS1_SHOWDIRTYSTATE
-
+export PS1 EDITOR GREP_OPTIONS GIT_PS1_SHOWDIRTYSTATE PATH GOPATH HISTCONTROL
+export CLICOLOR LS_OPTIONS PROMPT_COMMAND

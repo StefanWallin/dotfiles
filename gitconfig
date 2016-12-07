@@ -11,10 +11,10 @@
 [core]
 	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	precomposeunicode = true
-	attributesfile = ~/.gitattributes
+  excludesfile = ~/.gitignore
 
 [push]
-	default = tracking
+	default = upstream
 
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
@@ -27,6 +27,5 @@
 	enabled = true
 	autoupdate = false
 
-[merge]
-    ff = no
-    commit = no
+[branch "*branch-name*"]
+  rebase = true
