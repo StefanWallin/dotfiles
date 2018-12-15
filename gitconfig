@@ -11,7 +11,9 @@
 [core]
 	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	precomposeunicode = true
-  excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore
+#	editor = atom --wait
+#	attributesfile = ~/.gitattributes
 
 [push]
 	default = upstream
@@ -20,12 +22,20 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	st = status -sb
 	undo = reset --soft 'HEAD^'
+  cr =  !sh -c \"git commit -m '$(curl -s http://whatthecommit.com/index.txt)'\"
+
 [diff]
 	algorithm = patience
 
-[rerere]
-	enabled = true
-	autoupdate = false
+#[rerere]
+#	enabled = true
+#	autoupdate = false
 
+[merge]
+#    ff = no
+#    commit = no
+[filter "indent"]
+	clean = gexpand --tabs=2 --initial
+	smudge = gunexpand --tabs=2 --first-only
 [branch "*branch-name*"]
-  rebase = true
+	rebase = true
