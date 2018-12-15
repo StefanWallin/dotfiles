@@ -1,5 +1,7 @@
 #.bashrc
 
+stty quit "^T"
+
 # Source global definitions #
 #############################
 if [ -f /etc/bashrc ]; then
@@ -28,9 +30,14 @@ grey2="\[$esc[1;36m\]"
 grey3="\[$esc[0;37m\]"
 grey4="\[$esc[1;37m\]"
 
+# Set up SSH identities #
+#########################
+ssh-add -A
+
 # Other variables #
 ###################
 GREP_OPTIONS="--color=auto"
+EDITOR="vim"
 # Add bin folders to path
 PATH="/usr/local/bin:~/bin:$PATH"
 # Add current directory to PATH
@@ -41,17 +48,40 @@ PATH="/usr/local/heroku/bin:$PATH"
 PATH="~/gogit/bin:$PATH"
 
 
+# Programming language version management #
+###########################################
+## Python PYENV
+export PYENV_ROOT="$HOME/.pyenv"
+PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+## Ruby RBENV
 PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 source ~/.rbenv/completions/rbenv.bash
 rbenv rehash
 
+export PATH=/Users/festiz/flutter/bin:$PATH
+
+function rbenvsudo(){
+  executable=$1
+  shift 1
+  sudo $(rbenv which $executable) $*
+}
+
+## Node NDENV
 PATH="$HOME/.ndenv/bin:$PATH"
 eval "$(ndenv init -)"
-PATH="$HOME/.exenv/bin:$PATH"
-eval "$(exenv init -)"
+
+## Go
 GOPATH=$HOME/gogit
-EDITOR="vim"
+
+## Android Debugger Path
+ADB_PATH="$HOME/Library/Android/sdk/platform-tools" 
+
+
+## Homebrew sbin Path
+BREW_SBIN_PATH="/usr/local/sbin"
 
 # Functions #
 #############
@@ -138,9 +168,11 @@ alias gl="git log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset 
 alias renamehelp="echo 'for i in *.JPG; do mv \$i ar_\$i; done'; echo 'for i in *.JPG; do mv \$i \${i%%.JPG}.jpg; done'"
 alias tunnelhelp='echo "ssh -L port:localhost:port sshhost -Nf"'
 
+# Always use american git lang
+alias git="LANG=en_US.UTF-8 git"
 # Use hub helper for github if available.
 if [ -f `which hub` ]; then
-	alias git="hub"
+	alias git="LANG=en_US.UTF-8 hub"
 fi
 
 # Git prompt #
@@ -150,7 +182,7 @@ source ~/.git-prompt.sh
 if [ -f `brew --prefix`/etc/bash_completion ]; then
     . `brew --prefix`/etc/bash_completion
 fi
-source /usr/local/etc/bash_completion.d/git-flow-completion.bash
+#source /usr/local/etc/bash_completion.d/git-flow-completion.bash
 GIT_PS1_SHOWDIRTYSTATE="1"
 
 if type -p printf > /dev/null 2>&1; then
@@ -170,7 +202,8 @@ case $(uname) in
         function iterm_title { echo -ne "\033]0;$@\007"; }
         trap 'iterm_title $BASH_COMMAND' DEBUG
         PROMPT_COMMAND='iterm_title ${PWD##*/}$(__git_ps1 :%s)'
-
+        PATH=$PATH:$ADB_PATH
+        PATH=$PATH:$BREW_SBIN_PATH
     ;;
     Linux)
         eval "`dircolors`"
@@ -201,7 +234,42 @@ shopt -s checkwinsize
 [[ $- == *i* ]] && stty -ixon
 
 
+
+# Docker Compose #
+##################
+
+DCOR_PROJECT_DIR="~/mmgit/"
+DCOR_COMPOSE_DIR="~/mmgit/compose-files"
+  
+alias dcoup="docker-compose-project up"
+alias dcstop="docker-compose-project stop"
+alias dcor="docker-compose-project-run"
+alias dcor-rspec="dcor bundle exec rspec"
+alias dcor-bash="dcor /bin/bash"
+ 
+docker-compose-project() {
+  project_name=${PWD##*/}
+  project_dir="$DCOR_PROJECT_DIR/$project_name"
+  compose_file="$DCOR_COMPOSE_DIR/$project_name.yml"
+  command=$@
+  compose="PROJECT_DIR=$project_dir docker-compose -p $project_name -f $compose_file $command"
+  eval $compose
+}
+ 
+docker-compose-project-run() {
+  service=${PWD##*/}
+  command=$@
+  docker-compose-project run --rm $service $command
+}
+
+
 # Export shit into the shell #
 ##############################
 export PS1 EDITOR GREP_OPTIONS GIT_PS1_SHOWDIRTYSTATE PATH GOPATH HISTCONTROL
 export CLICOLOR LS_OPTIONS PROMPT_COMMAND
+
+export PATH="$HOME/.yarn/bin:$PATH"
+
+
+# added by travis gem
+[ -f /Users/festiz/.travis/travis.sh ] && source /Users/festiz/.travis/travis.sh
