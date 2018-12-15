@@ -1,0 +1,4 @@
+--skip-bundle
+--skip-test-unit
+-T
+-d postgresql

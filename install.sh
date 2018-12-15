@@ -82,6 +82,8 @@ diff -u -w ${INSTALL_DIR}/.bash_logout ${TMP_DIR}/bash_logout
 diff -u -w ${INSTALL_DIR}/.gitconfig ${TMP_DIR}/gitconfig
 diff -u -w ${INSTALL_DIR}/.gitattributes ${TMP_DIR}/gitattributes
 diff -u -w ${INSTALL_DIR}/.gitignore ${TMP_DIR}/gitignore
+diff -u -w ${INSTALL_DIR}/.railsrc ${TMP_DIR}/railsrc
+diff -u -w ${INSTALL_DIR}/.irbrc ${TMP_DIR}/irbrc
 diff -u -w ${INSTALL_DIR}/.git-completion.sh ${TMP_DIR}/git-completion.sh
 diff -u -w ${INSTALL_DIR}/.git-prompt.sh ${TMP_DIR}/git-prompt.sh
 echo
@@ -104,6 +106,8 @@ install -b -m 644 ${TMP_DIR}/bash_logout ${INSTALL_DIR}/.bash_logout
 install -b -m 644 ${TMP_DIR}/gitconfig ${INSTALL_DIR}/.gitconfig
 install -b -m 644 ${TMP_DIR}/gitattributes ${INSTALL_DIR}/.gitattributes
 install -b -m 644 ${TMP_DIR}/gitignore ${INSTALL_DIR}/.gitignore
+install -b -m 644 ${TMP_DIR}/railsrc ${INSTALL_DIR}/.railsrc
+install -b -m 644 ${TMP_DIR}/irbrc ${INSTALL_DIR}/.irbrc
 install -b -m 644 ${TMP_DIR}/git-completion.sh ${INSTALL_DIR}/.git-completion.sh
 install -b -m 644 ${TMP_DIR}/git-prompt.sh ${INSTALL_DIR}/.git-prompt.sh
 
